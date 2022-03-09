@@ -1,27 +1,15 @@
-# create_setup.pl
+# Requirements
+* Python 3.6+
+* the `conf_djpet.xml` file must be present in the working directory 
 
-A Perl script which takes the following input:
-* a JSON file with the old 3-layer J-PET setup description (in the new format after refactoring done by @kkacprzak)
-* an OpenDocument Spreadsheet (ODS) file with description of channel routing inside a single Digital-J-PET module
-and produces a new JSON file with setup description for a combined 4-layer setup were the 4th later is of digital FTAB modules.
+# create_modular_setup.py
 
-## Requirements
+The scripts takes no arguments and produces a JSON file with the Modular J-PET setup description compatible with J-PET Analysis Framework v10.
 
-The script works with Perl 5. The following Perl modules are required to run this script:
+# add_datasources.py
 
-* JSON
-* Spreadsheet::Read
-* Spreadsheet::ReadSXC
-* File::Basename
-* File::Map
-
-The required dependencies can be installed using CPAN:
-
-```sh
-cpan install JSON Spreadsheet::Read Spreadsheet::ReadSXC File::Basename File::Map
+The JSON file produced by `create_modular_setup.py` does not contain the `data_source` and `data_module` entries required by the new HLD unpacker. IF needed, they can be added to the setup by using:
 ```
-## Usage
-
-```sh
-perl create_setup.pl -l old_setup.json -m digital_module_routing.ods [-i run_number]
+    python3 add_datasources.py file_produced_by_create_modular_setup.json new_file.json
 ```
+As a result, `new_file.json` will be produced containing all contents of the previous JSON + the `data_source` and `data_module` entries.
