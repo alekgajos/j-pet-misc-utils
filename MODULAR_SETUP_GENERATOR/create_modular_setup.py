@@ -43,7 +43,7 @@ def calcScinPosition(module_theta, scin_in_module):
 
     # calculation scheme copied from j-pet-geant4 code
     radius = scin_radii[scin_in_module-1]
-    scin_in_module = scin_in_module - 7
+    scin_in_module = -1*(scin_in_module - 7)
     angle = module_theta + 1.04*scin_in_module
     angle = math.radians(angle)
 
